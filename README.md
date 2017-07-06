@@ -99,7 +99,10 @@ export class SharedModule { }
 
      <!-- 
      
-        WARNING, I'm using the Angular Material buttons with md-button directive and <md-icon> to show icons in this template, if you not using the Angular Material in your project you need to remove the all directives md-button in all <button> tags below and remove all <md-icon> below and change to simple text.
+        WARNING, I'm using the Angular Material buttons with md-button directive and <md-icon> to 
+        show icons in this template, if you not using the Angular Material in your project you need 
+        to remove the all directives md-button in all <button> tags below and remove all <md-icon> 
+        below and change to simple text.
     
      -->
 
