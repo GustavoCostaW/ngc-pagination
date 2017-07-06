@@ -74,13 +74,17 @@ export class SharedModule { }
         // pagination config to send to component
         createPagination() {
             this.paginationConfig = new BehaviorSubject({
-                totalItens: 300,
-                itensPerPage: 10,
-                currentPage: 1,
-                range: 10,
-                change_after: false
+                totalItens: 300, // required
+                itensPerPage: 10, // 10 is the default
+                currentPage: 1, // 1 is the default
+                range: 10, // 10 is the default
+                change_after: false // false is the default
             });
         }
+
+        /*
+          change_after property when is true, all user events isn't applied in the view when the current page is changed. A good sample of your usage is if you want to update the current page in the UI only your request is done for example.
+        */
 
         // to listener ngc-pagination events.
         events(event) {

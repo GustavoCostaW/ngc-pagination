@@ -54,7 +54,7 @@ export class NgcPaginationComponent implements OnInit {
       this.config.getValue().itensPerPage = 10;
     }
 
-    if(!this.config.getValue().change_after) {
+    if(this.config.getValue().change_after === undefined) {
       this.config.getValue().change_after = false;
     }
   }
