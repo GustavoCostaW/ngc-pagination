@@ -1,17 +1,17 @@
 import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'ngu-pagination',
+  selector: 'ngc-pagination',
   template: `
     <div id="exibition">
       <ng-content></ng-content>
     </div>
   `,
-  styleUrls: ['./ngu-pagination.component.css'],
+  styleUrls: ['./ngc-pagination.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class NguPaginationComponent {
+export class NgcPaginationComponent {
   @Output() public pageChanged;
   private config;
   private pagination;

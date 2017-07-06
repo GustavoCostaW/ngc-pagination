@@ -1,5 +1,5 @@
 {
-  "name": "ngu-pagination",
+  "name": "ngc-pagination",
   "version": "0.0.1",
   "description": "Simple pagination for Angular v2+",
   "scripts": {

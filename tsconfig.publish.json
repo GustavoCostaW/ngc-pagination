@@ -21,7 +21,7 @@
     "suppressImplicitAnyIndexErrors": true
   },
   "files": [
-    "./module/ngu-pagination.module.ts"
+    "./module/ngc-pagination.module.ts"
   ],
   "exclude": [
     "app",

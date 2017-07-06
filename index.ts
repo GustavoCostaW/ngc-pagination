@@ -1,1 +1,1 @@
-export * from './module/ngu-pagination.module';
+export * from './module/ngc-pagination.module';
