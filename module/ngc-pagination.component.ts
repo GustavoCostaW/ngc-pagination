@@ -3,8 +3,8 @@ import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter, OnInit
 
 export class NgcPaginationModel {
   totalItens: number;
-  itensPerPage: number;
-  currentPage: number;
+  itensPerPage?: number;
+  currentPage?: number;
   range?: number;
   change_after?: boolean;
   totalPages? :number;
@@ -33,10 +33,30 @@ export class NgcPaginationComponent implements OnInit {
 
   ngOnInit() {
     this.config.subscribe( v => {
+
+      this.useDefaultValues();
       this.createPagination();
       this.createExibition();
       this.cd.markForCheck();
     });
+  }
+
+  private useDefaultValues() {
+    if(!this.config.getValue().currentPage) {
+      this.config.getValue().currentPage = 1;
+    }
+
+    if(!this.config.getValue().range) {
+      this.config.getValue().range = 10;
+    }
+
+    if(!this.config.getValue().itensPerPage) {
+      this.config.getValue().itensPerPage = 10;
+    }
+
+    if(!this.config.getValue().change_after) {
+      this.config.getValue().change_after = false;
+    }
   }
 
   public goTo(e, page) {
@@ -78,6 +98,7 @@ export class NgcPaginationComponent implements OnInit {
   }
 
   private createExibition() {
+
     let start = Math.floor((this.config.getValue().currentPage-1) - this.config.getValue().range/2 < 0 ? 0 : this.config.getValue().currentPage-this.config.getValue().range/2);
     let end = Math.floor(this.config.getValue().currentPage < this.config.getValue().range/2 ? this.config.getValue().range : (this.config.getValue().currentPage) + this.config.getValue().range/2);
 
