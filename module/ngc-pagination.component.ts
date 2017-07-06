@@ -1,4 +1,16 @@
-import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter, OnInit } from '@angular/core';
+
+export class NgcPaginationModel {
+  totalItens: number;
+  itensPerPage: number;
+  currentPage: number;
+  range?: number;
+  change_after?: boolean;
+  totalPages? :number;
+  pagination?: number[];
+  exibition? : number[];
+}
 
 @Component({
   selector: 'ngc-pagination',
@@ -11,39 +23,32 @@ import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class NgcPaginationComponent {
-  @Output() public pageChanged;
-  private config;
-  private pagination;
-  private pageState;
+export class NgcPaginationComponent implements OnInit {
+  @Output() public paginationEvents: EventEmitter<any>;
+  @Input() public config: BehaviorSubject<NgcPaginationModel>;
 
   constructor() {
-    this.pageChanged = new EventEmitter();
-    this.pageState = 'start';
+    this.paginationEvents = new EventEmitter();
+  }
 
-    this.config = {
-      totalItens: 500,
-      itensPerPage: 5,
-      currentPage: 1,
-      range: 11,
-      change_after: false,
-    }
-
-    this.config.totalPages = this.config.totalItens < this.config.itensPerPage ? 1 : Math.round(this.config.totalItens / this.config.itensPerPage);
-    this.createPagination();
-    this.createExibition();
+  ngOnInit() {
+    this.config.subscribe( v => {
+      
+      this.createPagination();
+      this.createExibition();
+    });
   }
 
   public goTo(e, page) {
 
-    let temp_current_page = this.config.currentPage;
+    let temp_current_page = this.config.getValue().currentPage;
 
     switch(e) {
       case "firstPage":
         temp_current_page = 1;
       break;
       case "lastPage":
-        temp_current_page= this.config.totalPages;
+        temp_current_page = this.config.getValue().totalPages;
       break;
       case "prevPage":
         temp_current_page--;
@@ -55,32 +60,33 @@ export class NgcPaginationComponent {
         temp_current_page = page;
     }
 
-    if(!this.config.change_after) {
-      this.config.currentPage = temp_current_page;
+    if(!this.config.getValue().change_after) {
+      this.config.getValue().currentPage = temp_current_page;
+      this.createExibition();
     }
 
-    this.createExibition();
-    this.pageChanged.emit({goTo: temp_current_page, e: e});
+    this.paginationEvents.emit({goTo: temp_current_page, e: e});
   }
 
   private createPagination() {
-    this.config.pagination = [];
+    this.config.getValue().totalPages = this.config.getValue().totalItens < this.config.getValue().itensPerPage ? 1 : Math.round(this.config.getValue().totalItens / this.config.getValue().itensPerPage);
+    this.config.getValue().pagination = [];
 
-    for(let i = 0;i < this.config.totalPages; i++) {
-      this.config.pagination.push(i+1);
+    for(let i = 0;i < this.config.getValue().totalPages; i++) {
+      this.config.getValue().pagination.push(i+1);
     }
   }
 
   private createExibition() {
-    let start = Math.floor((this.config.currentPage-1) - this.config.range/2 < 0 ? 0 : this.config.currentPage-this.config.range/2);
-    let end = Math.floor(this.config.currentPage < this.config.range/2 ? this.config.range : (this.config.currentPage) + this.config.range/2);
+    let start = Math.floor((this.config.getValue().currentPage-1) - this.config.getValue().range/2 < 0 ? 0 : this.config.getValue().currentPage-this.config.getValue().range/2);
+    let end = Math.floor(this.config.getValue().currentPage < this.config.getValue().range/2 ? this.config.getValue().range : (this.config.getValue().currentPage) + this.config.getValue().range/2);
 
-    let diff = end - this.config.pagination.length;
+    let diff = end - this.config.getValue().pagination.length;
     if( diff > 0) {
       end -= diff;
       start -= diff;
     }
 
-    this.config.exibition = this.config.pagination.slice(start, end);
+    this.config.getValue().exibition = this.config.getValue().pagination.slice(start, end);
   }
 }
