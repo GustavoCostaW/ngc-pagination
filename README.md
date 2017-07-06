@@ -2,7 +2,6 @@
 
 Simple pagination for Angular v2+
 
-
 ## Installation
 
 First you need to install the npm module:
@@ -15,7 +14,7 @@ npm install ngc-pagination --save
 
 #### 1. Import the `NgcPaginationModule`:
 
-Finally, you can use ngc-pagination in your Angular project.
+Finally, you can use `ngc-pagination` in your Angular project.
 
 ```ts
 import {BrowserModule} from '@angular/platform-browser';
@@ -48,7 +47,6 @@ export class SharedModule { }
 ```
 
 ## Sample
-
 
 1 - Configure the pagination
 
@@ -105,6 +103,10 @@ export class SharedModule { }
     (paginationEvents)="events($event)">
 
      <!-- 
+
+        Note the `#pagination` template variable above is used in the html below to get the component reference.
+        you can change to any name.
+
      
         WARNING, I'm using the Angular Material buttons with md-button directive and <md-icon> to 
         show icons in this template, if you not using the Angular Material in your project you need 
@@ -158,17 +160,17 @@ export class SharedModule { }
 
 Well, with only that you can see this result:
 
-![](http://g.recordit.co/RDtZOmZ6kE.gif)
+![](http://g.recordit.co/rH0P2bdttK.gif)
 
 
-Cool! With your `BehaviorSubject` you can emit events and the `ngu-pagination` will react the property changes.
+Cool! With your `BehaviorSubject` you can emit events and the `ngc-pagination` will react the property changes.
 
 If you need change the currentPage
 
 ```Typescript
 
       this.paginationConfig.next({
-        ...this.paginationConfig.getValue(), // with this you get the active properties like totalItens, range...
+        ...this.paginationConfig.getValue(), // with this you're reusing the active properties like totalItens, range...
         currentPage: event.goTo // you only change the currentPage property
       })
 
@@ -178,25 +180,37 @@ If you need to change the pagination range
 
 ```Typescript
       this.paginationConfig.next({
-        ...this.paginationConfig.getValue(),
-        range: 5
+        ...this.paginationConfig.getValue(), //reusing the values...
+        range: 5 // change only range property
       })
 ```
 
-If change_after property is true you can update the view after 2s 'simulating a request'
+If `change_after` property is `true` you can update the view after 2s 'simulating a request'
 
 ```Typescript
-      // passing (paginationEvents)="events($event)" to listener ngc-pagination events
 
+      createPagination() {
+          this.paginationConfig = new BehaviorSubject({
+              totalItens: 300,
+              change_after: true
+          });
+      }
+
+      // passing (paginationEvents)="events($event)" to listener ngc-pagination events
       events(event) {
         // simulate request
         setTimeout( () => {
 
-          // update the currentPage UI when only the request is back.
+          // update the currentPage UI only when the 'simulate request is back' after 2s
           this.paginationConfig.next({
             ...this.paginationConfig.getValue(),
             currentPage: event.goTo
           })
+
         },2000);
       }
 ```
+
+See the behavior below when that code run:
+
+![](http://g.recordit.co/69wMYPL8qj.gif)
