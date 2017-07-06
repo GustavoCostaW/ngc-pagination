@@ -161,7 +161,7 @@ Well, with only that you can see this result:
 ![](http://g.recordit.co/RDtZOmZ6kE.gif)
 
 
-Cool! And with your `BehaviorSubject` you can emit events and the ngu-pagination will react the property changes.
+Cool! With your `BehaviorSubject` you can emit events and the `ngu-pagination` will react the property changes.
 
 If you need change the currentPage
 
@@ -174,7 +174,7 @@ If you need change the currentPage
 
 ```
 
-Or if you need change the pagination range
+If you need to change the pagination range
 
 ```Typescript
       this.paginationConfig.next({
@@ -183,7 +183,7 @@ Or if you need change the pagination range
       })
 ```
 
-Or if change_after property is true you can update the view 2s 'simulating a request'
+If change_after property is true you can update the view after 2s 'simulating a request'
 
 ```Typescript
       // passing (paginationEvents)="events($event)" to listener ngc-pagination events
