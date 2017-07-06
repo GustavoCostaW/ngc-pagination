@@ -1,11 +1,10 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "declaration": true,
     "stripInternal": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "noImplicitAny": false,
     "module": "es2015",
     "moduleResolution": "node",
@@ -18,10 +17,11 @@
     "lib": [
       "es2015", "dom"
     ],
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": false
   },
   "files": [
-    "./module/ngc-pagination.module.ts"
+    "./module/ngc-pagination.module.ts",
+    "./index.ts"
   ],
   "exclude": [
     "app",
