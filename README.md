@@ -160,7 +160,7 @@ export class SharedModule { }
 
 Well, with only that you can see this result:
 
-![](http://g.recordit.co/rH0P2bdttK.gif)
+![](http://g.recordit.co/a40l3UuTQe.gif)
 
 
 Cool! With your `BehaviorSubject` you can emit events and the `ngc-pagination` will react the property changes.
