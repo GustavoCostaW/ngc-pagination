@@ -1,18 +1,27 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "emitDecoratorMetadata": true,
+    "baseUrl": ".",
+    "declaration": true,
+    "stripInternal": true,
     "experimentalDecorators": true,
-    "removeComments": false,
+    "emitDecoratorMetadata": true,
+    "strictNullChecks": true,
     "noImplicitAny": false,
-    "declaration": true
+    "module": "es2015",
+    "moduleResolution": "node",
+    "rootDir": ".",
+    "outDir": "dist",
+    "sourceMap": true,
+    "inlineSources": true,
+    "target": "es5",
+    "skipLibCheck": true,
+    "lib": [
+      "es2015", "dom"
+    ],
+    "suppressImplicitAnyIndexErrors": true
   },
   "files": [
-    "./module/ngu-pagination.module.ts",
-    "./index.ts"
+    "./module/ngu-pagination.module.ts"
   ],
   "exclude": [
     "app",
