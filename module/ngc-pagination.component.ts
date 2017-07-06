@@ -16,7 +16,6 @@ export class NgcPaginationModel {
   selector: 'ngc-pagination',
   template: `
     <div id="exibition">
-    {{this.config.getValue().currentPage}}
       <ng-content></ng-content>
     </div>
   `,
