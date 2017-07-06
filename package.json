@@ -1,10 +1,9 @@
 {
   "name": "ngc-pagination",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Simple pagination for Angular v2+",
   "scripts": {
-    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
-    "lite": "lite-server",
+    "start": "tsc",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "prepublish": "tsc -p ./tsconfig.publish.json"
@@ -27,10 +26,10 @@
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/platform-server": "^4.0.0",
     "rxjs": "^5.4.2",
-    "typescript": "^2.4.1",
     "zone.js": "^0.6.23"
   },
   "devDependencies": {
-    "@types/node": "^8.0.7"
+    "@types/node": "^8.0.7",
+    "typescript": "^2.4.1"
   }
 }
