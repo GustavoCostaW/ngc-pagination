@@ -1,14 +1,30 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
+    "baseUrl": ".",
+    "declaration": true,
+    "stripInternal": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "module": "es2015",
+    "moduleResolution": "node",
+    "rootDir": ".",
+    "outDir": "dist",
+    "sourceMap": true,
+    "inlineSources": true,
+    "target": "es5",
+    "skipLibCheck": true,
     "lib": [
-      "es2016"
-    ]
-  }
+      "es2015", "dom"
+    ],
+    "suppressImplicitAnyIndexErrors": true
+  },
+  "files": [
+    "./module/ngu-pagination.module.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
