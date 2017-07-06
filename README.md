@@ -83,7 +83,9 @@ export class SharedModule { }
         }
 
         /*
-          change_after property when is true, all user events isn't applied in the view when the current page is changed. A good sample of your usage is if you want to update the current page in the UI only your request is done for example.
+          change_after property when is true, all user events isn't applied into the view when the 
+          current page is changed. A good example of your usage is if you want to update the current 
+          page in the UI only your request is done for example.
         */
 
         // to listener ngc-pagination events.
@@ -161,13 +163,12 @@ Well, with only that you can see this result:
 
 Cool! And with your `BehaviorSubject` you can emit events and the ngu-pagination will react the property changes.
 
-
 If you need change the currentPage
 
 ```Typescript
 
       this.paginationConfig.next({
-        ...this.paginationConfig.getValue(), // with this you get the active properties
+        ...this.paginationConfig.getValue(), // with this you get the active properties like totalItens, range...
         currentPage: event.goTo // you only change the currentPage property
       })
 
@@ -180,4 +181,22 @@ Or if you need change the pagination range
         ...this.paginationConfig.getValue(),
         range: 5
       })
+```
+
+Or if change_after property is true you can update the view 2s 'simulating a request'
+
+```Typescript
+      // passing (paginationEvents)="events($event)" to listener ngc-pagination events
+
+      events(event) {
+        // simulate request
+        setTimeout( () => {
+
+          // update the currentPage UI when only the request is back.
+          this.paginationConfig.next({
+            ...this.paginationConfig.getValue(),
+            currentPage: event.goTo
+          })
+        },2000);
+      }
 ```
