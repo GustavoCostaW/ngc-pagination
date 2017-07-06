@@ -85,7 +85,7 @@ export class NgcPaginationComponent implements OnInit {
       this.createExibition();
     }
 
-    this.paginationEvents.emit({goTo: temp_current_page, e: e});
+    this.paginationEvents.emit({goTo: temp_current_page, event: e});
   }
 
   private createPagination() {
