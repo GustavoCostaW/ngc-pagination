@@ -50,7 +50,7 @@ export class SharedModule { }
 ## Sample
 
 
-1 - config our pagination
+1 - Configure the pagination
 
 ```Typescript
 
@@ -72,7 +72,6 @@ export class SharedModule { }
         }
 
         // pagination config to send to component
-
         createPagination() {
             this.paginationConfig = new BehaviorSubject({
                 totalItens: 300,
@@ -92,10 +91,12 @@ export class SharedModule { }
 ```
 
 
-2 - Our pagination template
+2 - The pagination template
 
 ```HTML
-    <ngc-pagination #pagination [config]="paginationConfig" (paginationEvents)="events($event)">
+    <ngc-pagination #pagination 
+    [config]="paginationConfig" 
+    (paginationEvents)="events($event)">
 
      <!-- 
      
@@ -149,5 +150,30 @@ export class SharedModule { }
     </ngc-pagination>
 ```
 
+Well, with only that you can see this result:
+
+![](http://g.recordit.co/RDtZOmZ6kE.gif)
 
 
+Cool! And with your `BehaviorSubject` you can emit events and the ngu-pagination will react the property changes.
+
+
+If you need change the currentPage
+
+```Typescript
+
+      this.paginationConfig.next({
+        ...this.paginationConfig.getValue(), // with this you get the active properties
+        currentPage: event.goTo // you only change the currentPage property
+      })
+
+```
+
+Or if you need change the pagination range
+
+```Typescript
+      this.paginationConfig.next({
+        ...this.paginationConfig.getValue(),
+        range: 5
+      })
+```
