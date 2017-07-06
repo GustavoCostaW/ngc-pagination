@@ -1,5 +1,5 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter, OnInit, ChangeDetectorRef } from '@angular/core';
 
 export class NgcPaginationModel {
   totalItens: number;
@@ -16,26 +16,27 @@ export class NgcPaginationModel {
   selector: 'ngc-pagination',
   template: `
     <div id="exibition">
+    {{this.config.getValue().currentPage}}
       <ng-content></ng-content>
     </div>
   `,
   styleUrls: ['./ngc-pagination.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class NgcPaginationComponent implements OnInit {
   @Output() public paginationEvents: EventEmitter<any>;
   @Input() public config: BehaviorSubject<NgcPaginationModel>;
 
-  constructor() {
+  constructor(private cd: ChangeDetectorRef) {
     this.paginationEvents = new EventEmitter();
   }
 
   ngOnInit() {
     this.config.subscribe( v => {
-      
       this.createPagination();
       this.createExibition();
+      this.cd.markForCheck();
     });
   }
 
