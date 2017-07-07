@@ -2,6 +2,8 @@
 
 Simple pagination for Angular v2+
 
+![](http://g.recordit.co/hMI2hoTtG7.gif)
+
 ## Installation
 
 First you need to install the npm module:
