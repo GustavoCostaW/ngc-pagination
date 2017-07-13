@@ -128,7 +128,8 @@ export class SharedModule { }
         </md-icon>
       </button>
 
-      <button class="page" md-button *ngFor="let page of pagination.config.getValue().exibition" 
+      <button class="page" md-button 
+      *ngFor="let page of pagination.config.getValue().exibition" 
       [class.active]="page === pagination.config.getValue().currentPage"
       [disabled]="pagination.buttonsDisabled"
       (click)="page !== pagination.config.getValue().currentPage ? pagination.goTo('pageChanged', page) : undefined">
@@ -239,13 +240,13 @@ Sample:
           // simulate send new values
           this.paginationConfig.next({
             ...this.paginationConfig.getValue(), // get the first values
-            currentPage: event.goTo,
-            disabledWhenChange: false // you can set false now...
+            currentPage: event.goTo
           })
 
         },1000);
       }
 }
 ```
+See the behavior below when that code run:
 
 ![](http://g.recordit.co/edCW9GNta4.gif)
