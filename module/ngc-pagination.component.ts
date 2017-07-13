@@ -10,6 +10,7 @@ export class NgcPaginationModel {
   totalPages? :number;
   pagination?: number[];
   exibition? : number[];
+  disabledWhenChange?: boolean;
 }
 
 @Component({
@@ -26,14 +27,15 @@ export class NgcPaginationModel {
 export class NgcPaginationComponent implements OnInit {
   @Output() public paginationEvents: EventEmitter<any>;
   @Input() public config: BehaviorSubject<NgcPaginationModel>;
+  private buttonsDisabled: boolean;
 
   constructor(private cd: ChangeDetectorRef) {
     this.paginationEvents = new EventEmitter();
+    this.buttonsDisabled = false;
   }
 
   ngOnInit() {
     this.config.subscribe( v => {
-
       this.useDefaultValues();
       this.createPagination();
       this.createExibition();
@@ -42,20 +44,27 @@ export class NgcPaginationComponent implements OnInit {
   }
 
   private useDefaultValues() {
-    if(!this.config.getValue().currentPage) {
+    if (!this.config.getValue().currentPage) {
       this.config.getValue().currentPage = 1;
     }
 
-    if(!this.config.getValue().range) {
+    if (!this.config.getValue().range) {
       this.config.getValue().range = 10;
     }
 
-    if(!this.config.getValue().itensPerPage) {
+    if (!this.config.getValue().itensPerPage) {
       this.config.getValue().itensPerPage = 10;
     }
 
-    if(this.config.getValue().change_after === undefined) {
+    if (this.config.getValue().change_after === undefined) {
       this.config.getValue().change_after = false;
+    }
+
+    if (this.config.getValue().disabledWhenChange === undefined) {
+      this.config.getValue().disabledWhenChange = false;
+    }
+    else {
+      this.buttonsDisabled = false;
     }
   }
 
@@ -63,7 +72,7 @@ export class NgcPaginationComponent implements OnInit {
 
     let temp_current_page = this.config.getValue().currentPage;
 
-    switch(e) {
+    switch (e) {
       case "firstPage":
         temp_current_page = 1;
       break;
@@ -80,9 +89,13 @@ export class NgcPaginationComponent implements OnInit {
         temp_current_page = page;
     }
 
-    if(!this.config.getValue().change_after) {
+    if (!this.config.getValue().change_after) {
       this.config.getValue().currentPage = temp_current_page;
       this.createExibition();
+    }
+
+    if (this.config.getValue().disabledWhenChange === true) {
+      this.buttonsDisabled = true;
     }
 
     this.paginationEvents.emit({goTo: temp_current_page, event: e});
@@ -92,18 +105,18 @@ export class NgcPaginationComponent implements OnInit {
     this.config.getValue().totalPages = this.config.getValue().totalItens < this.config.getValue().itensPerPage ? 1 : Math.round(this.config.getValue().totalItens / this.config.getValue().itensPerPage);
     this.config.getValue().pagination = [];
 
-    for(let i = 0;i < this.config.getValue().totalPages; i++) {
+    for (let i = 0; i < this.config.getValue().totalPages; i++) {
       this.config.getValue().pagination.push(i+1);
     }
   }
 
   private createExibition() {
-
+    
     let start = Math.floor((this.config.getValue().currentPage-1) - this.config.getValue().range/2 < 0 ? 0 : this.config.getValue().currentPage-this.config.getValue().range/2);
     let end = Math.floor(this.config.getValue().currentPage < this.config.getValue().range/2 ? this.config.getValue().range : (this.config.getValue().currentPage) + this.config.getValue().range/2);
 
     let diff = end - this.config.getValue().pagination.length;
-    if( diff > 0) {
+    if (diff > 0) {
       end -= diff;
       start -= diff;
     }
