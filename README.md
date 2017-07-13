@@ -78,15 +78,10 @@ export class SharedModule { }
                 itensPerPage: 10, // 10 is the default
                 currentPage: 1, // 1 is the default
                 range: 10, // 10 is the default
-                change_after: false // false is the default
+                change_after: false, // false is the default,
+                disabledWhenChange: false // false is the default
             });
         }
-
-        /*
-          change_after property when is true, all user events isn't applied into the view when the 
-          current page is changed. A good example of your usage is if you want to update the current 
-          page in the UI only your request is done for example.
-        */
 
         // to listener ngc-pagination events.
         events(event) {
@@ -100,9 +95,9 @@ export class SharedModule { }
 2 - The pagination template
 
 ```HTML
-    <ngc-pagination #pagination 
-    [config]="paginationConfig" 
-    (paginationEvents)="events($event)">
+     <ngc-pagination #pagination 
+     [config]="paginationConfig" 
+     (paginationEvents)="events($event)">
 
      <!-- 
 
@@ -119,7 +114,7 @@ export class SharedModule { }
 
       <button md-button 
       (click)="pagination.goTo('firstPage')"
-      [disabled]="pagination.config.getValue().currentPage <= 1">
+      [disabled]="pagination.config.getValue().currentPage <= 1 || pagination.buttonsDisabled">
         <md-icon class="material-content-icon">
           first_page
         </md-icon>
@@ -127,32 +122,30 @@ export class SharedModule { }
 
       <button md-button 
       (click)="pagination.goTo('prevPage')"
-      [disabled]="pagination.config.getValue().currentPage <= 1">
+      [disabled]="pagination.config.getValue().currentPage <= 1 || pagination.buttonsDisabled">
         <md-icon class="material-content-icon">
           chevron_left
         </md-icon>
       </button>
 
-      <button md-button 
-      class="page" *ngFor="let page of pagination.config.getValue().exibition" 
+      <button class="page" md-button *ngFor="let page of pagination.config.getValue().exibition" 
       [class.active]="page === pagination.config.getValue().currentPage"
+      [disabled]="pagination.buttonsDisabled"
       (click)="page !== pagination.config.getValue().currentPage ? pagination.goTo('pageChanged', page) : undefined">
         {{page}}
       </button>
 
       <button md-button 
       (click)="pagination.goTo('nextPage')" 
-      [disabled]="pagination.config.getValue().currentPage >= pagination.config.getValue().totalPages" 
-      class="material-content-icon">
+      [disabled]="pagination.config.getValue().currentPage >= pagination.config.getValue().totalPages || pagination.buttonsDisabled">
         <md-icon class="material-content-icon">
           chevron_right
         </md-icon>
       </button>
 
-      <button md-button 
-      (click)="pagination.goTo('lastPage')"
-      [disabled]="pagination.config.getValue().currentPage >= pagination.config.getValue().totalPages" 
-      class="material-icons">
+      <button 
+      md-button (click)="pagination.goTo('lastPage')"
+      [disabled]="pagination.config.getValue().currentPage >= pagination.config.getValue().totalPages || pagination.buttonsDisabled">
         <md-icon class="material-content-icon">
           last_page
         </md-icon>
@@ -167,7 +160,7 @@ Well, with only that you can see this result:
 
 Cool! With your `BehaviorSubject` you can emit events and the `ngc-pagination` will react the property changes.
 
-If you need change the currentPage
+You can change the `currentPage` anytime
 
 ```Typescript
 
@@ -187,7 +180,15 @@ If you need to change the pagination range
       })
 ```
 
-If `change_after` property is `true` you can update the view after 2s 'simulating a request'
+## API
+
+`change_after` property when is true, all user events isn't applied into the view when the 
+current page is changed. A good example of your usage is if you want to update the current 
+page in the UI when the request is done for example.
+
+Sample:
+
+If `change_after` property is `true` the view is updated after 2s 'simulating a request'
 
 ```Typescript
 
@@ -205,7 +206,7 @@ If `change_after` property is `true` you can update the view after 2s 'simulatin
 
           // update the currentPage UI only when the 'simulate request is back' after 2s
           this.paginationConfig.next({
-            ...this.paginationConfig.getValue(),
+            ...this.paginationConfig.getValue(),  // get the first values
             currentPage: event.goTo
           })
 
@@ -216,3 +217,35 @@ If `change_after` property is `true` you can update the view after 2s 'simulatin
 See the behavior below when that code run:
 
 ![](http://g.recordit.co/69wMYPL8qj.gif)
+
+
+`disabledWhenChange` property when is true, any button is clicked, all buttons is disabled 
+and the pagination wait for the `next()` method to enable buttons
+
+Sample:
+
+```Typescript
+  createPagination() {
+    this.paginationConfig = new BehaviorSubject({
+        totalItens: 300,
+        change_after: true,
+        disabledWhenChange: true
+    });
+
+      // passing (paginationEvents)="events($event)" to listener ngc-pagination events
+      events(event) {
+        // simulate request
+        setTimeout( () => {
+          // simulate send new values
+          this.paginationConfig.next({
+            ...this.paginationConfig.getValue(), // get the first values
+            currentPage: event.goTo,
+            disabledWhenChange: false // you can set false now...
+          })
+
+        },1000);
+      }
+}
+```
+
+![](http://g.recordit.co/edCW9GNta4.gif)
