@@ -63,6 +63,7 @@ export class NgcPaginationComponent implements OnInit {
     if (this.config.getValue().disabledWhenChange === undefined) {
       this.config.getValue().disabledWhenChange = false;
     }
+
     else {
       this.buttonsDisabled = false;
     }
@@ -102,7 +103,7 @@ export class NgcPaginationComponent implements OnInit {
   }
 
   private createPagination() {
-    this.config.getValue().totalPages = this.config.getValue().totalItens < this.config.getValue().itensPerPage ? 1 : Math.round(this.config.getValue().totalItens / this.config.getValue().itensPerPage);
+    this.config.getValue().totalPages = this.config.getValue().totalItens < this.config.getValue().itensPerPage ? 1 : Math.ceil(this.config.getValue().totalItens / this.config.getValue().itensPerPage);
     this.config.getValue().pagination = [];
 
     for (let i = 0; i < this.config.getValue().totalPages; i++) {
@@ -111,14 +112,14 @@ export class NgcPaginationComponent implements OnInit {
   }
 
   private createExibition() {
-    
-    let start = Math.floor((this.config.getValue().currentPage-1) - this.config.getValue().range/2 < 0 ? 0 : this.config.getValue().currentPage-this.config.getValue().range/2);
-    let end = Math.floor(this.config.getValue().currentPage < this.config.getValue().range/2 ? this.config.getValue().range : (this.config.getValue().currentPage) + this.config.getValue().range/2);
+    let start = Math.ceil((this.config.getValue().currentPage-1) - this.config.getValue().range/2 < 0 ? 0 : (this.config.getValue().currentPage - 1) -this.config.getValue().range/2);
+    let end = Math.ceil(this.config.getValue().currentPage <= this.config.getValue().range/2 ? this.config.getValue().range+1 : (this.config.getValue().currentPage) + (this.config.getValue().range/2));
 
     let diff = end - this.config.getValue().pagination.length;
     if (diff > 0) {
+      let startCount = this.config.getValue().pagination.length - this.config.getValue().range -1;
+      start = startCount < 0 ? 0 : startCount;
       end -= diff;
-      start -= diff;
     }
 
     this.config.getValue().exibition = this.config.getValue().pagination.slice(start, end);
