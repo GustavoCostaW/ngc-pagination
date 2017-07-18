@@ -1,6 +1,6 @@
 # ngc-pagination
 
-Simple pagination for Angular v2+
+Simple pagination for Angular v4+
 
 ![](http://g.recordit.co/hMI2hoTtG7.gif)
 
