@@ -4,6 +4,8 @@ Simple pagination for Angular v4+
 
 ![](http://g.recordit.co/hMI2hoTtG7.gif)
 
+## [`Demo`](http://bit.ly/2xHWXWR)
+
 ## Installation
 
 First you need to install the npm module:
@@ -95,61 +97,56 @@ export class SharedModule { }
 2 - The pagination template
 
 ```HTML
-     <ngc-pagination #pagination 
-     [config]="paginationConfig" 
+     <ngc-pagination #pagination
+     [config]="paginationConfig"
      (paginationEvents)="events($event)">
 
-     <!-- 
+     <!--
 
-        Note the `#pagination` template variable above is used in the html below to get the component reference.
-        you can change to any name.
+        Note the `#pagination` template variable above is used in the html below to get the component reference, you can change to any name.
 
-     
-        WARNING, I'm using the Angular Material buttons with md-button directive and <md-icon> to 
-        show icons in this template, if you not using the Angular Material in your project you need 
-        to remove the all directives md-button in all <button> tags below and remove all <md-icon> 
-        below and change to simple text.
-    
+
+        WARNING, I'm using the Angular Material buttons with mat-button directive and <mat-icon> component to show icons in this template, if you're not using the Angular Material in your project you need to remove the all directives mat-button in all <button> tags below and also remove all <mat-icon> components.
+
      -->
 
-      <button md-button 
+      <button mat-button
       (click)="pagination.goTo('firstPage')"
       [disabled]="pagination.config.getValue().currentPage <= 1 || pagination.buttonsDisabled">
-        <md-icon class="material-content-icon">
+        <mat-icon>
           first_page
-        </md-icon>
+        <mat-icon>
       </button>
 
-      <button md-button 
+      <button mat-button
       (click)="pagination.goTo('prevPage')"
       [disabled]="pagination.config.getValue().currentPage <= 1 || pagination.buttonsDisabled">
-        <md-icon class="material-content-icon">
+        <mat-icon>
           chevron_left
-        </md-icon>
+        <mat-icon>
       </button>
 
-      <button class="page" md-button 
-      *ngFor="let page of pagination.config.getValue().exibition" 
+      <button class="page" mat-button
+      *ngFor="let page of pagination.config.getValue().exibition"
       [class.active]="page === pagination.config.getValue().currentPage"
       [disabled]="pagination.buttonsDisabled"
       (click)="page !== pagination.config.getValue().currentPage ? pagination.goTo('pageChanged', page) : undefined">
         {{page}}
       </button>
 
-      <button md-button 
-      (click)="pagination.goTo('nextPage')" 
+      <button mat-button
+      (click)="pagination.goTo('nextPage')"
       [disabled]="pagination.config.getValue().currentPage >= pagination.config.getValue().totalPages || pagination.buttonsDisabled">
-        <md-icon class="material-content-icon">
+        <mat-icon>
           chevron_right
-        </md-icon>
+        <mat-icon>
       </button>
 
-      <button 
-      md-button (click)="pagination.goTo('lastPage')"
+      <button mat-button (click)="pagination.goTo('lastPage')"
       [disabled]="pagination.config.getValue().currentPage >= pagination.config.getValue().totalPages || pagination.buttonsDisabled">
-        <md-icon class="material-content-icon">
+        <mat-icon>
           last_page
-        </md-icon>
+        <mat-icon>
       </button>
     </ngc-pagination>
 ```
@@ -183,8 +180,8 @@ If you need to change the pagination range
 
 ## API
 
-`change_after` property when is true, all user events isn't applied into the view when the 
-current page is changed. A good example of your usage is if you want to update the current 
+`change_after` property when is true, all user events isn't applied into the view when the
+current page is changed. A good example of your usage is if you want to update the current
 page in the UI when the request is done for example.
 
 Sample:
@@ -207,7 +204,7 @@ If `change_after` property is `true` the view is updated after 2s 'simulating a 
 
           // update the currentPage UI only when the 'simulate request is back' after 2s
           this.paginationConfig.next({
-            ...this.paginationConfig.getValue(),  // get the first values
+            ...this.paginationConfig.getValue(),  // get initial values
             currentPage: event.goTo
           })
 
@@ -220,7 +217,7 @@ See the behavior below when that code run:
 ![](http://g.recordit.co/69wMYPL8qj.gif)
 
 
-`disabledWhenChange` property when is true, any button is clicked, all buttons is disabled 
+`disabledWhenChange` property when is true, any button is clicked, all buttons is disabled
 and the pagination wait for the `next()` method to enable buttons
 
 Sample:

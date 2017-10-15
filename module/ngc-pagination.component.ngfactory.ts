@@ -8,7 +8,7 @@
 
 import * as i0 from '@angular/core';
 import * as i1 from './ngc-pagination.component';
-const styles_NgcPaginationComponent:any[] = ['#exibition[_ngcontent-%COMP%] {\n    display: flex;\n  }\n\n  [_nghost-%COMP%]     .page.active {\n      background: #4285F4;\n      color:white;\n      box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);\n  }\n  [_nghost-%COMP%]     .page {\n      color: #0275d8;\n      background-color: #fff;\n      cursor: pointer;\n      color:black;\n      width:33px;\n      height: 33px;\n      border-radius: 2px;\n      padding: 0px;\n  }\n\n  [_nghost-%COMP%]     button {\n      min-width: 33px;\n      min-height: 33px;\n      padding: 0px;\n  }'];
+const styles_NgcPaginationComponent:any[] = ['#exibition[_ngcontent-%COMP%] {\n    display: flex;\n  }\n\n  [_nghost-%COMP%]     .page.active {\n    background: #4285F4;\n    color:white;\n    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);\n  }\n\n  [_nghost-%COMP%]     button {\n    min-width: 33px;\n    min-height: 33px;\n    padding: 0px;\n    background: none;\n  }\n\n  [_nghost-%COMP%]     .page {\n    color: #0275d8;\n    background-color: #fff;\n    cursor: pointer;\n    color:black;\n    width:33px;\n    height: 100%;\n    border-radius: 2px;\n    padding: 0px;\n  }'];
 export const RenderType_NgcPaginationComponent:i0.RendererType2 = i0.ɵcrt({encapsulation:0,
     styles:styles_NgcPaginationComponent,data:{}});
 export function View_NgcPaginationComponent_0(_l:any):i0.ɵViewDefinition {

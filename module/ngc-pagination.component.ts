@@ -27,25 +27,27 @@ export class NgcPaginationModel {
   }
 
   :host /deep/ .page.active {
-      background: #4285F4;
-      color:white;
-      box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
-  }
-  :host /deep/ .page {
-      color: #0275d8;
-      background-color: #fff;
-      cursor: pointer;
-      color:black;
-      width:33px;
-      height: 33px;
-      border-radius: 2px;
-      padding: 0px;
+    background: #4285F4;
+    color:white;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
   }
 
   :host /deep/ button {
-      min-width: 33px;
-      min-height: 33px;
-      padding: 0px;
+    min-width: 33px;
+    min-height: 33px;
+    padding: 0px;
+    background: none;
+  }
+
+  :host /deep/ .page {
+    color: #0275d8;
+    background-color: #fff;
+    cursor: pointer;
+    color:black;
+    width:33px;
+    height: 100%;
+    border-radius: 2px;
+    padding: 0px;
   }
 
   `],
