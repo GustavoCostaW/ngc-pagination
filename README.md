@@ -106,7 +106,10 @@ export class SharedModule { }
         Note the `#pagination` template variable above is used in the html below to get the component reference, you can change to any name.
 
 
-        WARNING, I'm using the Angular Material buttons with mat-button directive and <mat-icon> component to show icons in this template, if you're not using the Angular Material in your project you need to remove the all directives mat-button in all <button> tags below and also remove all <mat-icon> components.
+        WARNING, I'm using the Angular Material buttons with mat-button directive and <mat-icon>
+          component to show icons in this template, if you're not using the Angular Material in your
+          project you need to remove the all directives mat-button in all <button> tags below and also
+          remove all <mat-icon> components.
 
      -->
 
@@ -156,7 +159,7 @@ Well, with only that you can see this result:
 ![](http://g.recordit.co/a40l3UuTQe.gif)
 
 
-Cool! With your `BehaviorSubject` you can emit events and the `ngc-pagination` will react the property changes.
+Cool! Now your `BehaviorSubject` you can emit events and the `ngc-pagination` will react the property changes.
 
 You can change the `currentPage` anytime
 
