@@ -97,7 +97,7 @@ export class SharedModule { }
 2 - The pagination template
 
 ```HTML
-     <ngc-pagination #pagination
+<ngc-pagination #pagination
      [config]="paginationConfig"
      (paginationEvents)="events($event)">
 
@@ -115,7 +115,7 @@ export class SharedModule { }
       [disabled]="pagination.config.getValue().currentPage <= 1 || pagination.buttonsDisabled">
         <mat-icon>
           first_page
-        <mat-icon>
+        </mat-icon>
       </button>
 
       <button mat-button
@@ -123,7 +123,7 @@ export class SharedModule { }
       [disabled]="pagination.config.getValue().currentPage <= 1 || pagination.buttonsDisabled">
         <mat-icon>
           chevron_left
-        <mat-icon>
+        </mat-icon>
       </button>
 
       <button class="page" mat-button
@@ -139,16 +139,16 @@ export class SharedModule { }
       [disabled]="pagination.config.getValue().currentPage >= pagination.config.getValue().totalPages || pagination.buttonsDisabled">
         <mat-icon>
           chevron_right
-        <mat-icon>
+        </mat-icon>
       </button>
 
       <button mat-button (click)="pagination.goTo('lastPage')"
       [disabled]="pagination.config.getValue().currentPage >= pagination.config.getValue().totalPages || pagination.buttonsDisabled">
         <mat-icon>
           last_page
-        <mat-icon>
+        </mat-icon>
       </button>
-    </ngc-pagination>
+</ngc-pagination>
 ```
 
 Well, with only that you can see this result:
